@@ -48,4 +48,4 @@ jobs:
               pull_number: 1
               state: "closed"
             })
-          if: success()
+          if: failure()
