@@ -35,10 +35,12 @@ jobs:
           github-token: ${{github.token}}
           script: |
             await github.pulls.createReview({
+              ...context.repo,
               body:"성공!! 다음 문제는 https://classroom.github.com/a/NbtIccEI",
               event: "REQUEST_CHANGES"
             })
             await github.pulls.update({
+              ...context.repo,
               state: "closed"
             })
           if: success()
