@@ -31,16 +31,17 @@ jobs:
 
       - name: if success
         uses: actions/github-script@0.2.0
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m ${{JSON.stringify(github)}}
-          git push
-        # with:
-        #   github-token: ${{github.token}}
-        #   script: |
-        #     const ref = "${{github}}"
-        #     const obj = JSON.stringify(ref)
+        with:
+          github-token: ${{github.token}}
+          script: |
+            await github.pulls.createReview({
+              ...context.repo,
+              body: JSON.stringify("${{github}}"),
+              event: "REQUEST_CHANGES"
+            })
+            await github.pulls.update({
+              ...context.repo,
+              state: "closed"
+            })
 
-        #   if: failure()
+          if: success()
