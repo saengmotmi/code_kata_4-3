@@ -34,6 +34,10 @@ jobs:
         with:
           github-token: ${{github.token}}
           script: |
+
+            const ref = "${{ github.ref }}"
+            const pull_number = ref.split("/")[2]
+
             await github.pulls.createReview({
               ...context.repo,
               pull_number: 1,
