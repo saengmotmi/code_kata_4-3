@@ -23,18 +23,24 @@ jobs:
         # - name: commit
         #   run: |
         #     date > generated.txt
-        #     git config user.name github-actions
-        #     git config user.email github-actions@github.com
-        #     git add .
-        #     git commit -m "generated"
-        #     git push
+        # git config user.name github-actions
+        # git config user.email github-actions@github.com
+        # git add .
+        # git commit -m "generated"
+        # git push
 
       - name: if success
         uses: actions/github-script@0.2.0
-        with:
-          github-token: ${{github.token}}
-          script: |
-            const ref = "${{github}}"
-            const obj = JSON.stringify(ref)
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m ${{JSON.stringify(github)}}
+          git push
+        # with:
+        #   github-token: ${{github.token}}
+        #   script: |
+        #     const ref = "${{github}}"
+        #     const obj = JSON.stringify(ref)
 
-          if: failure()
+        #   if: failure()
