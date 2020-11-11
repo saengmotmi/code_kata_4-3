@@ -29,6 +29,8 @@ jobs:
         #     git commit -m "generated"
         #     git push
 
+      - name: if fail
+        uses: actions/github-script@0.2.0
         with:
           github-token: ${{github.token}}
           script: |
@@ -37,7 +39,7 @@ jobs:
             await github.pulls.createReview({
               ...context.repo,
               pull_number,
-              body:"테스트코드를 다시 확인해주세요. ",
+              body:"성공~ https://classroom.github.com/a/NbtIccEI",
               event: "REQUEST_CHANGES"
             })
             await github.pulls.update({
@@ -45,4 +47,4 @@ jobs:
               pull_number,
               state: "closed"
             })
-          if: failure()
+          if: success()
