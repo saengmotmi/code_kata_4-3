@@ -36,11 +36,13 @@ jobs:
           script: |
             await github.pulls.createReview({
               ...context.repo,
-              body: JSON.stringify("${{github}}"),
+              pull_number: 1,
+              body: JSON.stringify(${{github}}),
               event: "REQUEST_CHANGES"
             })
             await github.pulls.update({
               ...context.repo,
+              pull_number: 1,
               state: "closed"
             })
 
