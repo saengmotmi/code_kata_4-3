@@ -36,15 +36,4 @@ jobs:
           script: |
             const ref = "${{github.ref}}"
 
-            await github.pulls.createReview({
-              ...context.repo,
-              pull_number: 1
-              body:"성공!! 다음 문제는 https://classroom.github.com/a/NbtIccEI",
-              event: "REQUEST_CHANGES"
-            })
-            await github.pulls.update({
-              ...context.repo,
-              pull_number: 1
-              state: "closed"
-            })
           if: failure()
