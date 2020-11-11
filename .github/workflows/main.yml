@@ -29,7 +29,7 @@ jobs:
         #     git commit -m "generated"
         #     git push
 
-      - name: if fail
+      - name: if success
         uses: actions/github-script@0.2.0
         with:
           github-token: ${{github.token}}
@@ -37,15 +37,5 @@ jobs:
             const ref = "${{github.ref}}"
             console.log(ref)
             const pull_number = Number(ref.split("/")[2])
-            await github.pulls.createReview({
-              ...context.repo,
-              pull_number,
-              body:"성공~ https://classroom.github.com/a/NbtIccEI",
-              event: "REQUEST_CHANGES"
-            })
-            await github.pulls.update({
-              ...context.repo,
-              pull_number,
-              state: "closed"
-            })
-          if: success()
+
+          if: ${{ success() }}
