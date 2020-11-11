@@ -31,6 +31,9 @@ jobs:
         # git commit -m "generated"
         # git push
 
+      - name: checkout
+        run: git checkout -b test
+
       - name: if success
         uses: actions/github-script@0.2.0
         with:
