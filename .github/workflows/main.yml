@@ -35,7 +35,7 @@ jobs:
           github-token: ${{github.token}}
           script: |
             const ref = "${{github.ref}}"
-            const foo = "${{context}}"
+            console.log(context)
 
             await github.pulls.createReview({
               ...context.repo,
