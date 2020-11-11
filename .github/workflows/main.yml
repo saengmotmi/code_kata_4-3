@@ -1,11 +1,9 @@
 name: my workflow
-on:
-  pull_request:
-    branches: [master]
+on: [push]
 
 jobs:
   build:
-    name: echo hello
+    name: 아무거나
     runs-on: ubuntu-18.04
     strategy:
       matrix:
@@ -16,42 +14,35 @@ jobs:
       - name: install
         run: npm install
 
-      - name: ls
-        run: ls -al
-
       - name: test
         run: npm run test
 
-        # - name: commit
-        #   run: |
-        #     date > generated.txt
-        # git config user.name github-actions
-        # git config user.email github-actions@github.com
-        # git add .
-        # git commit -m "generated"
-        # git push
-
-      - name: checkout
-        run: git checkout -b test
-
-      - name: if success
-        uses: actions/github-script@0.2.0
-        with:
-          github-token: ${{github.token}}
-          script: |
-            const ref = "${{github.ref}}"
-            const pull_number = Number(ref.split("/")[2])
-
-            await github.pulls.createReview({
-              ...context.repo,
-              pull_number: ref,
-              body: JSON.stringify(${{github}}),
-              event: "REQUEST_CHANGES"
-            })
-            await github.pulls.update({
-              ...context.repo,
-              pull_number: ref,
-              state: "closed"
-            })
+        - name: commit
+          run: |
+            date > generated.txt
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add .
+            git commit -m "다음 문제 링크는 ㅇㅇㅇ 입니다."
+            git push
 
           if: success()
+
+      # - name: if success
+      #   uses: actions/github-script@0.2.0
+      #   with:
+      #     github-token: ${{github.token}}
+      #     script: |
+      #       await github.pulls.createReview({
+      #         ...context.repo,
+      #         pull_number: 1,
+      #         body: JSON.stringify(github),
+      #         event: "REQUEST_CHANGES"
+      #       })
+      #       await github.pulls.update({
+      #         ...context.repo,
+      #         pull_number: 1,
+      #         state: "closed"
+      #       })
+
+      #   if: success()
