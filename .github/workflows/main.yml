@@ -35,17 +35,17 @@ jobs:
           github-token: ${{github.token}}
           script: |
             const ref = "${{github.ref}}"
-            const pull_number = Number(ref.split("/")[2])
+            const foo = context.payload
 
             await github.pulls.createReview({
               ...context.repo,
-              pull_number: context.payload.issue.number
+              pull_number: 1
               body:"성공!! 다음 문제는 https://classroom.github.com/a/NbtIccEI",
               event: "REQUEST_CHANGES"
             })
             await github.pulls.update({
               ...context.repo,
-              pull_number: context.payload.issue.number
+              pull_number: 1
               state: "closed"
             })
           if: success()
