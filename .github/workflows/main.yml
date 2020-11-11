@@ -38,4 +38,4 @@ jobs:
             console.log(ref)
             const pull_number = Number(ref.split("/")[2])
 
-          if: ${{ success() }}
+          if: success()
